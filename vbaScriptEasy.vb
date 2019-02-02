@@ -1,54 +1,55 @@
 Sub FirstandSecondLoop()
 
-Dim i, n, f, j As Long
+Dim i, n As Double
+
 Dim ws As Worksheet
 
-n = Cells(Rows.Count, "A").End(xlUp).Row
-f = Cells(Rows.Count, "G").End(xlUp).Row
+Dim TotVal As LongLong
 
-For Each ws In ThisWorkbook.Sheets
+Dim SumRow As Integer
+
+
+Dim Ticker As String
+
+For Each ws In Worksheets
+
+SumRow = 2
+TotVal = 0
+
+n = ws.Cells(Rows.Count, 1).End(xlUp).Row
+
+ws.Range("I1").Value = "Ticker"
+ws.Range("J1").Value = "Total Stock Volume"
 
     For i = 2 To n
-
-    ThisWorkbook.Sheets("2014").Cells(i, 9) = ThisWorkbook.Sheets("2014").Cells(i, 1).Value
-
-    Next i
     
-    For j = 2 To f
-    
-    ThisWorkbook.Sheets("2014").Cells(j, 10) = ThisWorkbook.Sheets("2014").Cells(j, 1).Value
-    
-    
-    Next j
-    
-      For i = 2 To n
-
-    ThisWorkbook.Sheets("2014").Cells(i, 9) = ThisWorkbook.Sheets("2014").Cells(i, 1).Value
-
-    Next i
-    
-    For j = 2 To f
-    
-    ThisWorkbook.Sheets("2014").Cells(j, 10) = ThisWorkbook.Sheets("2014").Cells(j, 1).Value
-    
-    
-    Next j
-    
-      For i = 2 To n
-
-    ThisWorkbook.Sheets("2014").Cells(i, 9) = ThisWorkbook.Sheets("2014").Cells(i, 1).Value
+        If ws.Cells(i + 1, 1).Value <> ws.Cells(i, 1).Value Then
+        
+        Ticker = ws.Cells(i, 1).Value
+        
+        TotVal = TotVal + ws.Cells(i, 7)
+        
+        ws.Range("I" & SumRow).Value = Ticker
+        ws.Range("J" & SumRow).Value = TotVal
+        
+        SumRow = SumRow + 1
+        
+        TotVal = 0
+        
+        Else
+        
+        TotVal = TotVal + ws.Cells(i, 7).Value
+        
+        End If
+        
+        
 
     Next i
     
-    For j = 2 To f
-    
-    ThisWorkbook.Sheets("2014").Cells(j, 10) = ThisWorkbook.Sheets("2014").Cells(j, 1).Value
-    
-    
-    Next j
 
-Next
+Next ws
 
 
 
 End Sub
+••••ˇˇˇˇ
